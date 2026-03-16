@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import Vista.Vista;
 import java.util.Queue;
 import java.util.ArrayDeque;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ public class Buffer {
     private Queue<Integer> almacen = new ArrayDeque<>();
 
     private final int capacidad;
+    private Evento evento;
 
     public Buffer(int capacidad) {
         this.capacidad = capacidad;
@@ -48,8 +50,8 @@ public class Buffer {
 
         almacen.offer(valor);
 
-        System.out.println("Buffer recibe: " + valor);
-
+        //System.out.println("Buffer recibe: " + valor);
+        evento.onEvento("Buffer recibe: " + valor);
         notifyAll();
     }
 
