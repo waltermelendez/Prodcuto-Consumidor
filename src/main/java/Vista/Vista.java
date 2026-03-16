@@ -4,11 +4,10 @@
  */
 package Vista;
 
-
 import Modelo.Evento;
 import javax.swing.*;
 
-public class Vista extends JFrame implements Evento{
+public class Vista extends JFrame implements Evento {
 
     public JButton btnBuscar = new JButton("Buscar archivo");
     public JButton btnEjecutar = new JButton("Ejecutar");
@@ -21,7 +20,7 @@ public class Vista extends JFrame implements Evento{
     public Vista() {
 
         setTitle("Simulación Productor-Consumidor");
-        setSize(600,400);
+        setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel panelBotones = new JPanel();
@@ -30,14 +29,14 @@ public class Vista extends JFrame implements Evento{
         panelBotones.add(btnEjecutar);
         panelBotones.add(btnSalir);
 
-        add(panelBotones,"North");
-        add(new JScrollPane(areaEventos),"Center");
-        add(lblArchivo,"South");
+        add(panelBotones, "North");
+        add(new JScrollPane(areaEventos), "Center");
+        add(lblArchivo, "South");
 
         setVisible(true);
     }
 
-    public void mostrarEvento(String mensaje){
+    public void mostrarEvento(String mensaje) {
         areaEventos.append(mensaje + "\n");
     }
 

@@ -19,17 +19,17 @@ public class Productor extends Thread {
     private Buffer bufferPares;
     private Buffer bufferImpares;
     private Buffer bufferPrimos;
-   
+    private Vista listener;
 
     //Cola para guardar los numeros leidos del archivo
     private Queue<Integer> producto = new ArrayDeque<>();
 
     //Constructor de productor con los diferentes buffers para cada timpo de numeros
-    public Productor(Buffer p, Buffer i, Buffer pr) {
+    public Productor(Buffer p, Buffer i, Buffer pr, Vista listener) {
         this.bufferPares = p;
         this.bufferImpares = i;
         this.bufferPrimos = pr;
-        
+        this.listener=listener;
     }
 
     @Override
@@ -43,19 +43,19 @@ public class Productor extends Thread {
 
                 bufferPrimos.producir(numero);
                 // System.out.println("Productor → primo: " + numero);
-                listener.onEvento("Productor → primo: " + numero);
+                listener.mostrarEvento("Productor → primo: " + numero);
 
             } else if (numero % 2 == 0) {
 
                 bufferPares.producir(numero);
                 // System.out.println("Productor → par: " + numero);
-                listener.onEvento("Productor → par: " + numero);
+                 listener.mostrarEvento("Productor → par: " + numero);
 
             } else {
 
                 bufferImpares.producir(numero);
                 // System.out.println("Productor → impar: " + numero);
-                listener.onEvento("Productor → impar: " + numero);
+                listener.mostrarEvento("Productor → impar: " + numero);
 
             }
 

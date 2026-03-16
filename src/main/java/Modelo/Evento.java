@@ -9,5 +9,10 @@ package Modelo;
  * @author walter
  */
 public interface Evento {
-     void onEvento(String mensaje);
+
+    void onEvento(String mensaje);
+
+    
+
+    
 }

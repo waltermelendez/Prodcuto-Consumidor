@@ -4,9 +4,7 @@
  */
 package Modelo;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-
+import Vista.Vista;
 import static java.lang.Thread.sleep;
 
 /**
@@ -17,12 +15,13 @@ public class Consumidor extends Thread {
 
     private final Buffer buffer;
     private int suma;
-    
-    
+    private Vista listener;
+
     //Constructor de consumidor
-    public Consumidor(Buffer buffer) {
+    public Consumidor(Buffer buffer, Vista listener) {
         this.buffer = buffer;
         this.suma = 0;
+        this.listener = listener;
     }
 
     //Iniciar consumidor
@@ -32,16 +31,17 @@ public class Consumidor extends Thread {
 
         while (true) {
 
-            i= buffer.consumir();
+            i = buffer.consumir();
 
             suma += i;
 
-            System.out.println(
-                    Thread.currentThread().getName()
-                    + " consume: " + i
-                    + " | suma = " + suma
-            );
-
+//            System.out.println(
+//                    Thread.currentThread().getName()
+//                    + " consume: " + i
+//                    + " | suma = " + suma
+//            );
+         
+            listener.mostrarEvento("consumidor → consume: " + i + " | suma = " + suma);
             try {
                 sleep(1000);
             } catch (InterruptedException e) {

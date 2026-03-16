@@ -19,10 +19,11 @@ public class Buffer {
     private Queue<Integer> almacen = new ArrayDeque<>();
 
     private final int capacidad;
-    private Evento evento;
+    private Vista vista;
 
-    public Buffer(int capacidad) {
+    public Buffer(int capacidad, Vista vista) {
         this.capacidad = capacidad;
+        this.vista=vista;
 
     }
 
@@ -51,7 +52,7 @@ public class Buffer {
         almacen.offer(valor);
 
         //System.out.println("Buffer recibe: " + valor);
-        evento.onEvento("Buffer recibe: " + valor);
+        vista.mostrarEvento("Buffer recibe: " + valor);
         notifyAll();
     }
 

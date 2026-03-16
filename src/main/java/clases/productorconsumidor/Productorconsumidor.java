@@ -29,7 +29,8 @@ public class Productorconsumidor {
 //        Productor productor = new Productor(
 //                bufferPares,
 //                bufferImpares,
-//                bufferPrimos
+//                bufferPrimos,
+//                vista
 //        );
 //
 //        Consumidor c1 = new Consumidor(bufferPares);
