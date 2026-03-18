@@ -15,6 +15,8 @@ public class Consumidor extends Thread {
 
     private final Buffer buffer;
     private int suma;
+    
+    // Objeto de vista para que el consumidor pueda mostrar a la vista lo que tiene que mostrar a la interfaz
     private Vista listener;
 
     //Constructor de consumidor
@@ -30,7 +32,8 @@ public class Consumidor extends Thread {
         int i = 0;
 
         while (true) {
-
+            
+            //llamada a la funcion consumir del buffer
             i = buffer.consumir();
 
             suma += i;
@@ -42,6 +45,7 @@ public class Consumidor extends Thread {
 //            );
          
             listener.mostrarEvento("consumidor → consume: " + i + " | suma = " + suma);
+            
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
