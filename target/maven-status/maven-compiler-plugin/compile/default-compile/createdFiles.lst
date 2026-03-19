@@ -1,6 +1,7 @@
+Vista/VentanaPrincipal.class
+Vista/Vista.class
 Modelo/Productor.class
 Controlador/Controlador.class
 clases/productorconsumidor/Productorconsumidor.class
 Modelo/Consumidor.class
 Modelo/Buffer.class
-Vista/Vista.class

@@ -4,8 +4,10 @@
  */
 package Modelo;
 
-import Vista.Vista;
+import Vista.VentanaPrincipal;
+
 import static java.lang.Thread.sleep;
+import javax.swing.JLabel;
 
 /**
  *
@@ -15,15 +17,19 @@ public class Consumidor extends Thread {
 
     private final Buffer buffer;
     private int suma;
-    
-    // Objeto de vista para que el consumidor pueda mostrar a la vista lo que tiene que mostrar a la interfaz
-    private Vista listener;
+    private JLabel[] bufferVisual;
+    private String tipo;
+    private VentanaPrincipal vista;
 
+    // Objeto de vista para que el consumidor pueda mostrar a la vista lo que tiene que mostrar a la interfaz
+    //private Vista listener;
     //Constructor de consumidor
-    public Consumidor(Buffer buffer, Vista listener) {
+    public Consumidor(Buffer buffer, JLabel[] bufferVisual, VentanaPrincipal vista, String tipo) {
         this.buffer = buffer;
         this.suma = 0;
-        this.listener = listener;
+        this.bufferVisual = bufferVisual;
+        this.tipo = tipo;
+        this.vista = vista;
     }
 
     //Iniciar consumidor
@@ -32,19 +38,18 @@ public class Consumidor extends Thread {
         int i = 0;
 
         while (true) {
-            
-            //llamada a la funcion consumir del buffer
-            i = buffer.consumir();
 
-            suma += i;
+            //llamada a la funcion consumir del buffer
+            i = buffer.consumir(bufferVisual);
+            suma+=i;
+            vista.actualizarSuma(tipo, suma);
 
 //            System.out.println(
 //                    Thread.currentThread().getName()
 //                    + " consume: " + i
 //                    + " | suma = " + suma
 //            );
-         
-            listener.mostrarEvento("consumidor → consume: " + i + " | suma = " + suma);
+            //listener.mostrarEvento("consumidor → consume: " + i + " | suma = " + suma);
             
             try {
                 sleep(1000);

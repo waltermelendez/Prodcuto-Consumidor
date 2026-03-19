@@ -6,7 +6,7 @@ package Vista;
 
 import javax.swing.*;
 
-public class Vista extends JFrame  {
+public class Vista extends JFrame {
 
     public JButton btnBuscar = new JButton("Buscar archivo");
     public JButton btnEjecutar = new JButton("Ejecutar");
@@ -15,6 +15,8 @@ public class Vista extends JFrame  {
     public JTextArea areaEventos = new JTextArea();
 
     public JLabel lblArchivo = new JLabel("Archivo: ninguno");
+    
+    
 
     public Vista() {
 
@@ -34,14 +36,12 @@ public class Vista extends JFrame  {
 
         setVisible(true);
     }
-    
-    
+
     /*funcion para mostrar los textos de las acciones del productor como el consumidor y como las acciones del
      programa (como el inicio de la simuacion, el fin del mismo, entre otros)*/
     public void mostrarEvento(String mensaje) {
         areaEventos.append(mensaje + "\n");
     }
 
-    
-    
+
 }

@@ -4,7 +4,7 @@
  */
 package Modelo;
 
-import Vista.Vista;
+import Vista.VentanaPrincipal;
 import java.io.*;
 //Liberira para la funcion "sleep" del thread.
 import static java.lang.Thread.sleep;
@@ -16,30 +16,26 @@ import java.util.Queue;
  *
  * @author walter
  */
-
-
 public class Productor extends Thread {
 
-    
     //Declaracion de los buffer, son los espacios en donde tanto el consumindor el productor se puede comunicar
     private Buffer bufferPares;
     private Buffer bufferImpares;
     private Buffer bufferPrimos;
-    
-    
-    private Vista listener;
+
+    private VentanaPrincipal listener;
 
     //Cola para guardar los numeros leidos del archivo
     private Queue<Integer> producto = new ArrayDeque<>();
 
     //Constructor de productor con los diferentes buffers para cada timpo de numeros
-    public Productor(Buffer p, Buffer i, Buffer pr, Vista listener) {
+    public Productor(Buffer p, Buffer i, Buffer pr, VentanaPrincipal listener) {
         this.bufferPares = p;
         this.bufferImpares = i;
         this.bufferPrimos = pr;
-        this.listener=listener;
+        this.listener = listener;
     }
-    
+
     //Funcion de inicio el productor
     @Override
     public void run() {
@@ -47,35 +43,35 @@ public class Productor extends Thread {
         while (!producto.isEmpty()) {
 
             int numero = producto.poll();
-            
-           
+
             if (clasificar(numero)) {
-                 //Caso en donde el numero es primo
-                bufferPrimos.producir(numero);
+                //Caso en donde el numero es primo
+                bufferPrimos.producir(numero, listener.getBufferPrimos());
                 // System.out.println("Productor → primo: " + numero);
-                listener.mostrarEvento("Productor → primo: " + numero);
+                // listener.mostrarEvento("Productor → primo: " + numero);
 
             } else if (numero % 2 == 0) {
-                
-                 //Caso en donde el numero es par
-                bufferPares.producir(numero);
+
+                //Caso en donde el numero es par
+                bufferPares.producir(numero, listener.getBufferPares());
                 // System.out.println("Productor → par: " + numero);
-                 listener.mostrarEvento("Productor → par: " + numero);
+                //  listener.mostrarEvento("Productor → par: " + numero);
 
             } else {
-                 //Caso en donde el numero es impar
-                bufferImpares.producir(numero);
+                //Caso en donde el numero es impar
+                bufferImpares.producir(numero, listener.getBufferImpares());
                 // System.out.println("Productor → impar: " + numero);
-                listener.mostrarEvento("Productor → impar: " + numero);
+                //listener.mostrarEvento("Productor → impar: " + numero);
 
             }
-            
+           
+
             //Funcion para dormir al thread
             try {
                 sleep(500);
             } catch (InterruptedException e) {
             }
-            
+
         }
     }
 
@@ -97,7 +93,7 @@ public class Productor extends Thread {
         return true;
 
     }
-    
+
     //Funcion para que el productor tenga la capacidad de leer archivos
     public void read(String archivo) throws FileNotFoundException, IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
