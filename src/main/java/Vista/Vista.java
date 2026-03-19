@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class Vista extends JFrame {
 
+    //declaracion de botones y de la ventana principal
     public JButton btnBuscar = new JButton("Buscar archivo");
     public JButton btnEjecutar = new JButton("Ejecutar");
     public JButton btnSalir = new JButton("Salir");

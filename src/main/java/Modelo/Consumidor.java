@@ -23,7 +23,7 @@ public class Consumidor extends Thread {
 
     // Objeto de vista para que el consumidor pueda mostrar a la vista lo que tiene que mostrar a la interfaz
     //private Vista listener;
-    //Constructor de consumidor
+    //Constructor de consumidor, llama al buffer correspondiente, la etiqueta, ventana y el nombre
     public Consumidor(Buffer buffer, JLabel[] bufferVisual, VentanaPrincipal vista, String tipo) {
         this.buffer = buffer;
         this.suma = 0;
@@ -42,14 +42,10 @@ public class Consumidor extends Thread {
             //llamada a la funcion consumir del buffer
             i = buffer.consumir(bufferVisual);
             suma+=i;
+            //Actualizar la suma del consumidor y luego mostrarla a la vista
             vista.actualizarSuma(tipo, suma);
 
-//            System.out.println(
-//                    Thread.currentThread().getName()
-//                    + " consume: " + i
-//                    + " | suma = " + suma
-//            );
-            //listener.mostrarEvento("consumidor → consume: " + i + " | suma = " + suma);
+
             
             try {
                 sleep(1000);

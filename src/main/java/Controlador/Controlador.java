@@ -21,6 +21,7 @@ public class Controlador {
 
     private String archivo;
 
+    //Constructor del controlador
     public Controlador(Vista vista) {
 
         this.vista = vista;

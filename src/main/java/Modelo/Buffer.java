@@ -36,13 +36,14 @@ public class Buffer {
 
     //Funcion para que el consumidor pueda consumir los numeros del almacen
     /* synchronized es una  palabra clave se trata de diferentes hilos que leen y escriben en las mismas variables, objetos y recursos.*/
+    //Pide una etiqueta para mandarla a la vista.
     public synchronized int consumir(JLabel[] bufferVisual) {
 
         //Si el almacen esta vacio, espere
         while (almacen.isEmpty()) {
 
             try {
-                vista.setEstadoConsumidor("BLOQUEADO");
+               
                 wait();
 
             } catch (InterruptedException e) {
@@ -55,7 +56,7 @@ public class Buffer {
         //Notifica a todos que ha consumido un numero
 
         vista.log("Consumido: " + i);
-        vista.setEstadoConsumidor("CONSUMIENDO");
+       
         vista.actualizarBuffer(bufferVisual, almacen);
 
         notifyAll();
@@ -67,7 +68,7 @@ public class Buffer {
         //Si la capacidad es igual a la cantidad de la lista tiene que esperar
         while (almacen.size() == capacidad) {
             try {
-                vista.setEstadoProductor("BLOQUEADO");
+              
                 wait();
 
             } catch (InterruptedException e) {
@@ -76,10 +77,9 @@ public class Buffer {
         //Insertar un valor en el almacen
         almacen.offer(valor);
 
-        //System.out.println("Buffer recibe: " + valor);
+        
         //Envia a un texto en la interfaz
-        //vista.mostrarEvento("Buffer recibe: " + valor);
-        vista.setEstadoProductor("PRODUCIENDO");
+        
         vista.actualizarBuffer(bufferVisual, almacen);
         vista.log("Insertado: " + valor);
 

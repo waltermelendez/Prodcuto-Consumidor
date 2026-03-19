@@ -39,7 +39,7 @@ public class Productor extends Thread {
     //Funcion de inicio el productor
     @Override
     public void run() {
-
+        //mientras que el prodcutor tenga elementos en la cola, va a seguir extayendo y colocarlo en su respectivo buffer
         while (!producto.isEmpty()) {
 
             int numero = producto.poll();
@@ -47,21 +47,17 @@ public class Productor extends Thread {
             if (clasificar(numero)) {
                 //Caso en donde el numero es primo
                 bufferPrimos.producir(numero, listener.getBufferPrimos());
-                // System.out.println("Productor → primo: " + numero);
-                // listener.mostrarEvento("Productor → primo: " + numero);
+                
 
             } else if (numero % 2 == 0) {
 
                 //Caso en donde el numero es par
                 bufferPares.producir(numero, listener.getBufferPares());
-                // System.out.println("Productor → par: " + numero);
-                //  listener.mostrarEvento("Productor → par: " + numero);
-
+               
             } else {
                 //Caso en donde el numero es impar
                 bufferImpares.producir(numero, listener.getBufferImpares());
-                // System.out.println("Productor → impar: " + numero);
-                //listener.mostrarEvento("Productor → impar: " + numero);
+                
 
             }
            
@@ -83,7 +79,7 @@ public class Productor extends Thread {
 
         for (int i = 2; i <= Math.sqrt(n); i++) {
 
-            //Si es divisiable dentro de i, no es par
+            //Si es divisiable dentro de i,  es par
             if (n % i == 0) {
                 return false;
             }

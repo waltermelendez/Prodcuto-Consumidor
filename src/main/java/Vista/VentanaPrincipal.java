@@ -12,58 +12,57 @@ import javax.swing.*;
  * @author walter
  */
 public class VentanaPrincipal extends JFrame {
-
+    
+    //Declaracion de los arreglos de etiquetas para mostrar en pantalla
     private JLabel[] bufferPares;
     private JLabel[] bufferImpares;
     private JLabel[] bufferPrimos;
-
+    
+    //Etiquetas del estado del prodcutor y del consumidor
     private JLabel lblEstadoProductor;
     private JLabel lblEstadoConsumidor;
 
+    //Etiquetas de los nombres de los buffers
     private JLabel lblContadorPares;
     private JLabel lblContadorImpares;
     private JLabel lblContadorPrimos;
 
+    // Texto en donde se muestra las acciones
     private JTextArea log;
 
+    //Ventana en donde se mostrar el 
     public VentanaPrincipal(int capacidad) {
 
         setTitle("Productor-Consumidor");
         setSize(1000, 750);
         setLayout(new BorderLayout());
-
+        
+        //Crea un nuevo panel 
         JPanel panelBuffers = new JPanel(new GridLayout(3, 1));
 
+        //Creacion de los bufferes, pide el nombre del buffer, un panel a donde mardar la información y la capacidad del buffer.
         bufferPares = crearBufferPanel("PARES", panelBuffers, capacidad);
         bufferImpares = crearBufferPanel("IMPARES", panelBuffers, capacidad);
         bufferPrimos = crearBufferPanel("PRIMOS", panelBuffers, capacidad);
 
         add(panelBuffers, BorderLayout.CENTER);
-
+        
+        //Nuevo panel para mostrar la informacion
         JPanel panelInfo = new JPanel(new GridLayout(3, 2));
+        
+        
+        
 
-        lblEstadoProductor = new JLabel("Productor: ");
-        lblEstadoConsumidor = new JLabel("Consumidores: ");
 
-        lblContadorPares = new JLabel("Pares: 0");
-        lblContadorImpares = new JLabel("Impares: 0");
-        lblContadorPrimos = new JLabel("Primos: 0");
-
-        panelInfo.add(lblEstadoProductor);
-        panelInfo.add(lblEstadoConsumidor);
-        panelInfo.add(lblContadorPares);
-        panelInfo.add(lblContadorImpares);
-        panelInfo.add(lblContadorPrimos);
-
-        add(panelInfo, BorderLayout.NORTH);
-
+        //Crea un area de texto mostrar la informacion
         log = new JTextArea();
         add(new JScrollPane(log), BorderLayout.SOUTH);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
-
+    
+    //Crea el buffer visual en la ventana, pide el titulo como se va a llamar, el panel y la capacidad del buffer
     private JLabel[] crearBufferPanel(String titulo, JPanel padre, int capacidad) {
 
         JPanel panel = new JPanel();
@@ -81,9 +80,12 @@ public class VentanaPrincipal extends JFrame {
         padre.add(panel);
         return buffer;
     }
-
+    
+    //Funcion para actualizar los datos al ejecutarse el programa
     public void actualizarBuffer(JLabel[] buffer, java.util.Queue<Integer> cola) {
-
+        
+        
+        //Se declara un hilo aparte para que se encargue de actualizar los datos de la parte visual.
         SwingUtilities.invokeLater(() -> {
 
             int i = 0;
@@ -97,27 +99,17 @@ public class VentanaPrincipal extends JFrame {
             }
         });
     }
-
+    
+    //Mandar mensaje
     public void log(String msg) {
         SwingUtilities.invokeLater(() -> log.append(msg + "\n"));
     }
 
-    public void setEstadoProductor(String estado) {
-        SwingUtilities.invokeLater(() -> lblEstadoProductor.setText("Productor: " + estado));
-    }
 
-    public void setEstadoConsumidor(String estado) {
-        SwingUtilities.invokeLater(() -> lblEstadoConsumidor.setText("Consumidor: " + estado));
-    }
 
-    public void actualizarContadores(int pares, int impares, int primos) {
-        SwingUtilities.invokeLater(() -> {
-            lblContadorPares.setText("Pares: " + pares);
-            lblContadorImpares.setText("Impares: " + impares);
-            lblContadorPrimos.setText("Primos: " + primos);
-        });
-    }
-
+    
+    
+    //Funciones para obtener los areglos de etiquetas
     public JLabel[] getBufferPares() {
         return bufferPares;
     }
@@ -129,7 +121,8 @@ public class VentanaPrincipal extends JFrame {
     public JLabel[] getBufferPrimos() {
         return bufferPrimos;
     }
-
+    
+    //Funcion para actualizar y mostrar la suma del consumidor 
     public void actualizarSuma(String tipo, int suma) {
         SwingUtilities.invokeLater(() -> {
             log.append(tipo + " suma = " + suma + "\n");
